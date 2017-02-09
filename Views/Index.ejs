@@ -1,0 +1,117 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>Login Form</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script src="content/js/jquery-2.1.1.js"></script>
+    <link rel="stylesheet" href="content/css/bootstrap.min.css">
+    <script src="content/js/bootstrap.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            var userName, pass;
+            $("#submit").click(function () {
+                userName = $("#userName").val();
+                pass = $("#password").val();
+
+                /*
+                * Perform some validation here.
+                */
+                $.post("/login", { userName: userName, pass: pass }, function (data, status, xhr) {
+                   //checking the response 
+                    if (status = 'success') {
+                        if (data === 'done') {
+                            window.location.href = "/home";
+                        } else {
+                            $('#divError').show();
+                        }
+                    } else {
+                        window.location.href = "/home";
+                    }
+                   
+                    
+                });
+            });
+
+            $(".nav-tabs a").click(function () {
+                $(this).tab('show');
+            });
+        });
+    </script>
+</head>
+<body>
+    <div>
+    <img src="../content/img/infosys-logo.jpg" width="120"/>
+    <h5 style="float:right; margin-top:20px;  margin-right:10px">Building Tomorrow's Enterprise</h5>
+    </div>
+    <label class="well text-center" style="width:100%; box-shadow: 0 0 20px black;">Customer Engagement Tool</label>
+    <div class="container">
+        <div class="col-sm-7" >
+            <img class="img-responsive" src="content/img/Infy.jpg" />
+        </div>
+        <div class="col-sm-5">
+            <ul class="nav nav-tabs">
+                <li class="active"><a href="#Login">Login</a></li>
+                <li><a href="#menu1">About</a></li>
+                <li><a href="#menu2">Contact Us</a></li>
+               
+            </ul>
+            <div class="tab-content">
+                <div id="Login" class="tab-pane fade in active">
+                    <h3>Login Form</h3>
+                    <form class="form-horizontal">
+                        <div class="form-group">
+                            <label class="control-label col-sm-2" for="userName">Username:</label>
+                            <div class="col-sm-10">
+                                <input type="text" class="form-control" id="userName" placeholder="Enter username">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-sm-2" for="pwd">Password:</label>
+                            <div class="col-sm-10">
+                                <input type="password" class="form-control" id="password" placeholder="Enter password">
+                            </div>
+                        </div>
+                        <!--<div class="form-group">
+                            <div class="col-sm-offset-2 col-sm-10">
+                                <div class="checkbox">
+                                    <label><input type="checkbox"> Remember me</label>
+                                </div>
+                            </div>
+                        </div>-->
+                        <div class="form-group">
+                            <div class="col-sm-offset-2 col-sm-10">
+                                <input type="button" value="Login" id="submit" class="btn btn-default">
+                            </div>
+                        </div>
+                        <div id="divError" class="alert alert-danger" style="display:none">
+                            Your username or password is incorrect.
+                        </div>
+                        <div id="divConError" class="alert alert-danger" style="display:none">
+                            There is some problem with server. Kindly try after some time.
+                        </div>
+                    </form>
+                </div>
+                <div id="menu1" class="tab-pane fade">
+                    <h3>Customer Service management tool</h3>
+                    <p style="font-size:medium">Hello! Welcome to customer service management tool developed by Infosys Tesco Jumps track. Here we made different journies to handle wide range of problems related to product quality, store complaint, gesture of goodwill ...etc. We have developed this demo using <mark>NodeJs, Bootstrap, JQuery and MongoDB</mark> technologies. We hope the scope of this demo can be enhanced to handle a wide range of problems in retail sector.</p>
+                </div>
+                <div id="menu2" class="tab-pane fade">
+                    <h3>Contact Us</h3>
+                    <p>You can react us at <a href="mailto:eng_tesco_jumps@infosys.com">ENG_TESCO_JUMPS</a></p>
+            </div>
+            
+         </div>
+    </div>
+        
+        </div>
+    <!--<footer style="position: fixed;bottom: 0px; width:100%">
+        <div style="width:100%"> &copy;Copyright 1999-2017. All Rights Reserved.</div>
+
+    </footer>-->
+
+    <footer class="footer" style="position: fixed;bottom: 0px; width:100%; text-align:center">
+        <div class="panel-footer" style="width:100%">&copy;Copyright 1999-2017. All Rights Reserved.</div>
+    </footer>
+</body>
+</html>

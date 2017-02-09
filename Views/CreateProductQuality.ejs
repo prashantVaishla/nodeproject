@@ -1,0 +1,384 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>Create Product Quality</title>
+
+    <link rel="stylesheet" type="text/css" href="content/css/font.css?family=Abeezee:400|Open+Sans:400,600,700|Source+Sans+Pro:400,600">
+    <link rel="stylesheet" type="text/css" href="Content/css/defaults.css">
+    <link rel="stylesheet" type="text/css" href="Content/css/demo.css">
+	   
+    <script src="content/js/jquery.min.js"></script>
+    
+    <script type="text/javascript" src="Content/js/accordion.js"></script>
+    
+   
+    <link rel="stylesheet" href="content/css/bootstrap.min.css">
+    <script src="content/js/bootstrap.min.js"></script>
+	<script type="text/javascript" src="content/js/validationScripts/productqualityvalidation.js"></script>
+   
+    <style>
+        .modal-header, h4, .close {
+            background-color: #5891BF;
+            color: white !important;
+            text-align: left;
+            font-size: 15px;
+        }
+
+        .modal-footer {
+            background-color: #f9f9f9;
+            align-content:center;
+        }
+    </style>
+</head>
+<body>
+    
+        <div>
+            <% include CommonPages/HeaderFile %>
+        </div>
+
+
+        <!--<div style="width:100%; vertical-align:top;height:100%; margin-left:0px">
+            <table style="height:100%">
+                <tr>
+                    <td valign="top" width="20%" height="100%">-->
+    <div id="wrapper" class="container-fluid" style="padding-left:0px;height:100%">
+        <div class="page-content-wrapper" style="height:inherit">
+            <div class="col-sm-2" style="padding-left: 0px;height:inherit">
+                <% include CommonPages/SideNavigation %>
+            </div>
+            <!--</td>-->
+            <!--<td>-->
+            <div class="col-sm-10 container-fluid" style="margin-top:15px">
+
+                <div class="panel panel-default">
+                    <div class="panel-heading">Product Quality</div>
+
+                    <div class="panel-body">
+                            <div class="accordion">
+                                <div class="accordion-section" id="accordion-section-1">
+                                    <a class="accordion-section-title" href="#accordion-1">Product Details</a>
+                                    <div id="accordion-1" class="accordion-section-content">
+                                        <table style="width:100%">
+                                            <tr>
+                                                <td width="20%" align="left"><label id="lblBarcode">Barcode*</label></td>
+                                                <td><input name="formElement" id="txtBarcode" type="text" style="" /></td>
+                                                <td rowspan="3" style="vertical-align:top;" align="right" width="20%"><label id="lblProductDescription"> Product Description:</label></td>
+                                                <td rowspan="3" align="center"><textarea id="txtProductDescription" rows="5" cols="35" disabled></textarea></td>
+
+                                            </tr>
+                                            <tr>
+                                                <td><label id="lblTPNB"> TPNB*</label></td>
+                                                <td><input name="formElement" id="txtTPNB" type="text" /></td>
+                                            </tr>
+                                            <tr>
+                                                <td width="20%" align="left"><label id="lblTPNC"> TPNC*</label></td>
+                                                <td><input name="formElement" id="txtTPNC" type="text" /></td>
+                                            </tr>
+                                            <tr>
+                                                <td colspan="3" align="right" style="padding-right:15%">
+                                                    <button id="btnProductLookUp" type="button" class="btn small">PRODUCT LOOKUP</button>
+                                                </td>
+                                                <td colspan="2" align="left">
+                                                    <button id="btnWrongProduct" type="button" class="btn small">WRONG PRODUCT</button>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td width="20%" align="left"><label id="lblSupplier">Supplier: </label></td>
+                                                <td><input id="txtSupplier" name="formElement" type="text" disabled /></td>
+                                                <td colspan="2" hidden><button id="btnWrongSupplier" type="button" class="btn small">WRONG Supplier</button></td>
+                                            </tr>
+                                            <tr>
+                                                <td><label id="lblScCode">SC Code* </label></td>
+                                                <td><input name="formElement" id="txtScCode" type="text" /></td>
+                                                <td hidden><input id="chkSupplierCodeUn" type="checkbox" /><span>Supplier Code Unavailable</span></td>
+                                                <td hidden><select style="width:100px"></select></td>
+                                            </tr>
+                                            <tr>
+                                                <td><label id="lblBatchCode">Batch Code*: </label></td>
+                                                <td><input name="formElement" id="txtBatchCode" type="text" /></td>
+                                                <td hidden><input id="chkBatchCodeUn" type="checkbox" /><span>Batch Code Unavailable</span></td>
+                                                <td hidden><select style="width:100px"></select></td>
+                                            </tr>
+                                            <tr hidden>
+                                                <td><label id="lblDateCode">Date Code: </label></td>
+                                                <td><input id="txtDateCode" type="text" />
+                                                <td><select></select></td>
+                                                <td></td>
+                                                <td></td>
+                                            </tr>
+                                            <tr height="5px">
+                                                <td></td>
+                                            </tr>
+                                            <tr>
+                                                <td colspan="2">
+                                                    <span>Customer happy to pass on contact details for direct supplier contact?</span>
+                                                </td>
+                                                <td colspan="2">
+                                                    <span > 
+                                                        <input type="radio" name="passedContact" value="Yes" />Yes&nbsp;&nbsp;&nbsp;&nbsp;
+                                                    </span>
+                                                    <span>
+                                                        <input type="radio" name="passedContact" value="No" />No
+                                                    </span>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td colspan="5" align="right">
+                                                    <button class="accordion-button-next btn large" id="btnNext-1">Continue</button>
+                                                </td>
+                                            </tr>
+                                        </table>
+                                    </div><!--end .accordion-section-content-->
+                                </div><!--end .accordion-section-->
+
+                                <div class="accordion-section" id="accordion-section-2">
+                                    <a class="accordion-section-title" href="#accordion-2">Purchase Details</a>
+                                    <div id="accordion-2" class="accordion-section-content">
+                                        <table style="width:100%">
+                                            <tr>
+                                                <td width="20%"><label id="lblStoreNumber">Store Number*</label></td>
+                                                <td>
+                                                    <input name="formElement" id="txtStoreNumber" type="text" />
+                                                    <button id="btnStoreNumber" class="btn small">Store Lookup</button>
+                                                </td>
+                                                <td></td>
+                                            </tr>
+                                            <tr>
+                                                <td width="20%"><label id="lblStoreNumber">Store Name:</label></td>
+                                                <td><input id="txtStoreName" type="text" disabled/></td>
+                                            </tr>
+                                            <tr>
+                                                <td width="20%"><label id="lblStoreAddres">Store Address:</label></td>
+                                                <td><textarea id="txtAreaAddress" rows="10" cols="20" disabled></textarea></td>
+                                            </tr>
+                                            <tr hidden>
+                                                <td width="20%" ><label id="lblDateTime">Date &Time</label></td>
+                                                <td><input id="txtDateTime" type="datetime" /></td>
+                                                <td></td>
+                                            </tr>
+                                            <tr>
+                                                <td width="20%"><label id="lblPurchasePrice">Purchase Price</label></td>
+                                                <td><input type="text" id="txtPurchasePrice" placeholder="0.0" /></td>
+                                            </tr>
+                                            <tr>
+                                                <td colspan="3" align="right">
+                                                    <button class="accordion-button-prev btn large" id="btnPrev-2">Back</button>
+                                                    <button class="accordion-button-next btn large" id="btnNext-2">Continue</button>
+                                                </td>
+                                            </tr>
+                                        </table>
+                                    </div><!--end .accordion-section-content-->
+                                </div><!--end .accordion-section-->
+
+                                <div class="accordion-section" id="accordion-section-3">
+                                    <a class="accordion-section-title" href="#accordion-3">Complaint Summary</a>
+                                    <div id="accordion-3" class="accordion-section-content">
+                                        <table style="width:100%">
+                                            <tr>
+                                                <td colspan="2" style="margin-bottom:5px;">
+                                                    <span style="font-style:italic;">Please note that this description will also be included in communications to our suppliers</span>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td><label id="lblComplaintDescription">Complaint Description</label></td>
+                                                <td><textarea id="txtAreaDescription" rows="8" cols="100"></textarea></td>
+                                            </tr>
+                                            <tr>
+                                                <td colspan="3" align="right">
+                                                    <button class="accordion-button-prev btn large" id="btnPrev-3">Back</button>
+                                                    <button class="accordion-button-next btn large" id="btnNext-3" >Continue</button>
+                                                </td>
+                                            </tr>
+                                        </table>
+
+                                    </div><!--end .accordion-section-content-->
+                                </div><!--end .accordion-section-->
+
+
+                                <div class="accordion-section" id="accordion-section-4">
+                                    <a class="accordion-section-title" href="#accordion-4">Financial Details</a>
+                                    <div id="accordion-4" class="accordion-section-content">
+                                        <table>
+                                            <tr>
+                                                <td colspan="4"><span>For a moneycard £25 or more, please get TL authorisation and add the TL name to the authorisation box for approval</span></td>
+                                            </tr>
+                                            <tr>
+                                                <td colspan="2"><span>Would you like to issue a refund to this customer?</span></td>
+                                                <td><span><input type="radio" name="RefundCustomer" value="Yes" />Yes<input type="radio" name="RefundCustomer" value="No" checked="checked" />No</span></td>
+                                            </tr>
+                                            <tr>
+                                                <td colspan="2"><span>Would you like to issue a gesture of goodwill to this customer?</span></td>
+                                                <td><span><input type="radio" name="rdGOGW" value="Yes" />Yes<input type="radio" name="rdGOGW" value="No" checked="checked" />No</span></td>
+                                            </tr>
+                                            <tr>
+                                                <td><label id="lblRefundValue">Refund Value</label></td>
+                                                <td><input id="txtRefundValue" type="text" placeholder="0.0" disabled /></td>
+                                                <td></td>
+                                            </tr>
+                                            <tr>
+                                                <td><label id="lblGOGWValue">GOGW Value</label></td>
+                                                <td><input id="txtGOGWValue" type="text" disabled placeholder="0.0" /></td>
+                                                <td></td>
+                                            </tr>
+                                            <tr>
+                                                <td><label id="lblMoneyCardValue">MoneyCard Value*</label></td>
+                                                <td><input id="txtMoneyCardValue" type="text" placeholder="0.0" disabled /></td>
+                                                <td></td>
+                                            </tr>
+                                            <tr hidden>
+                                                <td><label id="lblAuthorizationId">Authorization ID*</label></td>
+                                                <td colspan="2"><input id="txtAuthorizationID" type="text" disabled placeholder="0.0" /></td>
+                                            </tr>
+                                            <tr hidden>
+                                                <td><label id="lblAuthorization">Authorization*</label></td>
+                                                <td colspan="3"><textarea id="txtAreaAuthorization" rows="8" cols="100" disabled></textarea></td>
+
+                                            </tr>
+                                            <tr>
+                                                <td colspan="4" align="right">
+                                                    <button class="accordion-button-prev btn large" id="btnPrev-4">Back</button>
+                                                </td>
+                                            </tr>
+                                        </table>
+
+                                    </div><!--end .accordion-section-content-->
+                                    <div style="padding-top:20px;text-align:right; padding-right:20px">
+                                        <button type="submit" id="btnFinish" class="btn extralarge">Finish</button>
+                                    </div>
+                                </div><!--end .accordion-section-->
+                            </div><!--end .accordion-->
+                        </div>
+                    </div>
+             </div>
+
+                <!--<div>
+        <!--<button id="btnToggle"  class="" style="width:12px; height:25px">></button>-->
+                <!-- <a href="#" id="btnToggle" class="btn btn-success" style="width:12px; height:25px"></a>
+        </div>-->
+            </div>
+        <!--<div class="col-md-2">
+            <div class="form-group" style="margin-top:30px">
+               
+                    <label for="KnowledgeCentre">Knowledge centre</label>
+                    <input class="form-control" id="txtKnowledgeCentre" width="30" />
+</div>
+        </div>-->
+        <!--</td>
+                </tr>
+            </table>
+        </div>-->
+        <!--<div class="container">-->
+        <div class="modal fade" id="myModal" role="dialog">
+            <div class="modal-dialog">
+                <!-- Modal content-->
+                <div class="modal-content">
+                    <div class="modal-header" style="height:50px;">
+                        <h4 style="margin-top:0px">Product quality case has been created.</h4>
+                    </div>
+                    <div class="modal-body" style="padding:40px 50px;">
+                        <table>
+                            <tr>
+                                <td>
+                                    <p>Case Id:</p>
+                                </td>
+                                <td>
+                                    <input type="text" disabled id="lblMongoDBid" value="" />
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <p>Summary:</p>
+                                </td>
+                                <td>
+                                    <input type="text" disabled id="lblComplaintSummary" value="" />
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <p>Bar Code:</p>
+                                </td>
+                                <td>
+                                    <input type="text" disabled id="lblBarCode" value="" />
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <p>TPNB: </p>
+                                </td>
+                                <td>
+                                    <input type="text" disabled id="lblTPNB1"/>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <p>TPNC</p>
+                                </td>
+                                <td>
+                                    <input type="text" disabled="disabled" id="lblTPNC1" value=""/>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <p>Store number:</p>
+                                </td>
+                                <td>
+                                    <input type="text" disabled id="lblStoreNumber1" value=""/>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="submit" class="btn btn-primary" data-dismiss="modal" onclick="window.location.href='/home'">OK</button>                      
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="modal fade" id="errorProductLook" role="dialog" style="margin-top:75px">
+            <div class="modal-dialog" style="width:300px;">
+                <!-- Modal content-->
+                <div class="modal-content">
+                    <div class="modal-header" style="height:50px">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        <h4 style="margin-top:0px">Error</h4>
+                    </div>
+                    <div class="modal-body">
+                        <label>You have entered an invalid value</label>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="modal fade" id="errorStoreLookUp" role="dialog" style="margin-top:75px">
+            <div class="modal-dialog" style="width:300px;">
+                <!-- Modal content-->
+                <div class="modal-content">
+                    <div class="modal-header" style="height:50px">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        <h4 style="margin-top:0px">Error</h4>
+                    </div>
+                    <div class="modal-body">
+                        <label>You have entered an invalid store number</label>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="modal fade" id="errorForEmptyFields" role="dialog" style="margin-top:75px">
+            <div class="modal-dialog" style="width:300px;">
+                <!-- Modal content-->
+                <div class="modal-content">
+                    <div class="modal-header" style="height:50px">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        <h4 style="margin-top:0px">Error</h4>
+                    </div>
+                    <div class="modal-body">
+                        <label>One or more mandatory fields are empty!</label>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--</div>-->
+<footer class="footer" style="position: fixed;bottom: 0px; width:100%; text-align:center">
+        <div class="panel-footer" style="width:100%">&copy;Copyright 1999-2017. All Rights Reserved.</div>
+    </footer>
+</body>
+</html>

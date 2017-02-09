@@ -1,0 +1,202 @@
+﻿<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Search Case</title>
+    <meta charset="utf-8" />
+
+    <link rel="stylesheet" href="content/css/bootstrap.min.css">
+    <link rel="stylesheet" href="content/css/datepicker.min.css" />
+    <link rel="stylesheet" href="content/css/datepicker3.min.css" />
+    <link rel="stylesheet" href="content/css/jquery.dataTables.min.css"></style>
+    <script type="text/javascript" src="content/js/jquery.dataTables.min.js"></script>
+    <script src="http://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.3.0/js/bootstrap-datepicker.min.js"></script>
+
+    <script>
+    $(document).ready(function () {
+		 var viewdatatab  =  $('#myTable').dataTable({
+		  processing: true,
+            "columns": [
+
+							{ "title": "Case Id","mDataProp": "_id" },
+                            { "title": "complaintSummary","mDataProp": "complaintSummary" },
+                            { "title": "Bar code","mDataProp": "barCode" },
+                            { "title": "TPNB code","mDataProp": "tpnb" },
+                            { "title": "TPNC CODE","mDataProp": "tpnc" },
+                            { "title": "Store Number","mDataProp": "storeNumber" },
+                            { "title": "Agent Id","mDataProp": "userName" },
+                            { "title": "Date & Time","mDataProp": "dataNtime" }
+
+            ],
+			"iDisplayLength": 2,
+                    "bLengthChange": false,
+					"oLanguage":{
+								"sProcessing":"Processing..",
+								
+								"sZeroRecords":"No record found",
+								}
+    });
+
+
+	$('#datePicker')
+       .datepicker({
+			autoclose: true,
+           format: 'mm/dd/yyyy'
+       });
+    $('#datePicker2')
+     .datepicker({
+		autoclose: true,
+         format: 'mm/dd/yyyy'
+     });
+    //$('#datePicker3')
+    // .datepicker({
+    //     format: 'mm/dd/yyyy'
+    // });
+    //$('#datePicker4')
+    // .datepicker({
+    //     format: 'mm/dd/yyyy'
+    // });
+    //   //.on('changeDate', function (e) {
+    //   //    // Revalidate the date field
+    //    //    $('#eventForm').formValidation('revalidateField', 'date');
+
+
+
+    $('#submit').click(function () {
+        port = 3000;
+        caseId = $('#txtCaseId').val();
+        createdfrom = $('#txtcreatedFrom').val();
+        createdTo = $('#txtcreatedTo').val();
+        modifiedfrom = $('#txtmodifiedfrom').val();
+        modifiedto = $('#txtmodifiedto').val();
+        Owner = $('#txtOwner').val();
+
+
+
+        //$.get("http://localhost:" + port + "/SearchCaseItem", { Owner: Owner, caseId: caseId, createdfrom: createdfrom, createdTo: createdTo, modifiedfrom: modifiedfrom, modifiedto: modifiedto }, function (data) {
+        //    console.log(data[0].tpnb);
+        //});
+        $.ajax({
+            type: "GET",
+            url: '/SearchCaseItem',
+            data: { Owner: Owner, caseId: caseId, createdfrom: createdfrom, createdTo: createdTo },
+            cache: false,
+            contentType: 'application/json',
+            datatype: 'json',
+            success: function (response,msg) {
+					var table = $('#myTable').DataTable();
+								table.clear();
+								table.rows.add(response);
+								table.draw();
+		
+            },
+            error: function () {
+                alert("ajax error occured");
+				$.fn.dataTable.ext.errMode = 'none';
+
+				$('#myTable')
+					.on( 'error.dt', function ( e, settings, techNote, message ) {
+					console.log( 'An error has been reported by DataTables: ', message );
+				} )
+					.DataTable();
+                //type error code here
+            }
+        });
+
+    });
+
+    });
+
+
+
+    </script>
+
+    
+</head>
+<body>
+    <div class="panel panel-default">
+        <div class="panel-heading">Search Cases</div>
+
+        <div class="panel-body">
+		<p class="small">To search for a case enter the Case ID, Owner or select the Case Type from the drop-down menu and click ‘Search’. Select a case from the Search Results list and click ‘Open’.</p>
+            <div class="container-fluid">
+                <div class="col-sm-5 col-lg-5 col-xs-5">
+                    <form >
+						<div class=" col-xs-8">
+                            <div class="form-group">
+                                <label class="small" for="CaseID" >Case ID:</label>
+                                <input type="text" class="form-control" id="txtCaseId">
+                            </div>
+                            <div class="form-group">
+                                <label class="small" for="Owner">Owner:</label>
+                                <input type="text" class="form-control" id="txtOwner">
+                            </div>
+                            <div class="form-group">
+                                <label class="small" for="CaseType">Case Type:</label>
+                                <select class="form-control" id="ddCaseType">
+                                    <option>Please Select</option>
+                                    <option>Create GOGW</option>
+                                    
+
+                                </select>
+                            </div>
+						</div>
+                        
+
+                    </form>
+                </div>
+                <div class="col-sm-7 col-lg-7 col-xs-7">
+
+                    <form class="form-inline">
+                        <div class="form-group">
+                            <label class="small" for="created">Created:</label>
+                            <div>
+                                <div class="input-group input-append date" id="datePicker">
+                                    <input type="text" class="form-control" name="date" id="txtcreatedFrom"/>
+                                    <span class="input-group-addon add-on"><span class="glyphicon glyphicon-calendar"></span></span>
+                                </div>
+                                <label class="small" for="to">to</label>
+                                <div class="input-group input-append date" id="datePicker2">
+                                    <input type="text" class="form-control" name="date" id="txtcreatedTo"/>
+                                    <span class="input-group-addon add-on"><span class="glyphicon glyphicon-calendar"></span></span>
+                                </div>
+                            </div>
+                        </div>
+
+                    </form>
+                </div>
+                <div class="col-sm-offset-1 col-lg-offset-1 col-xs-offset-1">
+				<div class="form-group" style="float:right">
+                            
+                                        <button type="submit" id="submit" class="btn extralarge">Search</button>
+								
+                        </div>
+				</div>
+			</div>
+        </div>
+
+    </div>
+
+
+    <div class="panel panel-default"
+         style="position:relative;bottom:0;width:100%">
+        <div class="panel-body">
+            <table id="myTable" class="table table-striped">
+                <thead>
+                    <tr>
+                    <th>Case Id</th>
+                    <th>complaintSummary</th>
+                    <th>barCode</th>
+                    <th>TPNB Code</th>
+                    <th>TPNC Code</th>
+                    <th>Store Number</th>
+                    <th>Agent Id</th>
+                    <th>Date & Time</th>
+                    </tr>
+                </thead>
+            </table>
+        </div>
+
+    </div>
+</body>
+</html>
